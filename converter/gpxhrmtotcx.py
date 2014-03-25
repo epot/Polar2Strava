@@ -3,7 +3,8 @@ Created on 13 Dec 2013
 
 This modules allows you to merge the content of a gpx and its associated hrm in a single tcx file.
 
-It is highly relies on http://colby.id.au/combining-gpx-and-hrm-files.
+It is highly relies on http://colby.id.au/combining-gpx-and-hrm-files
+(and therefore only works on machine with awk installed)
 
 It could be done in a much nicer/modular way (with xsl transformation) if time allows.
 
@@ -11,7 +12,6 @@ It could be done in a much nicer/modular way (with xsl transformation) if time a
 '''
 
 import subprocess
-import shlex
 import os
 
 class GpxHrmToTcx(object):
@@ -38,9 +38,6 @@ class GpxHrmToTcx(object):
             awk_file = os.path.join(os.path.dirname(__file__), 'thirdparty', 'gpx2tcx.awk')
             cmd = 'awk -f {} -v HRMFILE={} {} > {}'.format(
                     awk_file, self.__hrm_file_path,self.__gpx_file_path, os.path.abspath(tcx_file_path))
-            print "slip"
-            print cmd
-            print "slip"
             subprocess.check_call(cmd, shell=True)
                 
         except (subprocess.CalledProcessError, OSError) as e:
