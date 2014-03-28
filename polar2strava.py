@@ -1,6 +1,9 @@
 '''
 Created on 13 Dec 2013
 
+Scan and merge gpx/hrm couples into tcx files.
+Optionally upload results to Strava.
+
 @author: epot
 '''
 
@@ -63,9 +66,9 @@ def scan(folder, email_from):
     upload_to_strava(email_from, new_tcx_files)
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Scan a given folder and merge all couples of gpx and hrm files with the the filename into tcx files if not existing. Upload the results (new tcx files converted) if a Strava email is passed.")
     parser.add_argument("-f", "--folder", help="Folder to scan")
-    parser.add_argument("-e", "--email", help="If this is set, then an email will be sent to Strava with new results (needs a smtp server on localhost).")
+    parser.add_argument("-e", "--email", help="Associated email of your Strava account. If this is set, then freshly converted tcx files are uploaded to Strava (needs a smtp server on localhost).")
     args = parser.parse_args()
     scan(args.folder, args.email)
 
